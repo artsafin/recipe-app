@@ -1,0 +1,30 @@
+/* Empty. Add your own CSS if you like */
+
+.icon-complexity-0 {
+	font-size: 150%;
+}
+.icon-complexity-1 {
+	font-size: 170%;
+}
+.icon-complexity-2 {
+	font-size: 190%;
+}
+.icon-complexity-3 {
+	font-size: 210%;
+}
+
+.icon-enable {
+	opacity: 1;
+}
+
+.icon-disable {
+	opacity: 0.25;
+}
+
+.step-done {
+	opacity: 0.3;
+}
+
+.badge-top-right {
+	right: 5px!important;
+}

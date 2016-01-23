@@ -1,0 +1,11 @@
+<ion-view ng-controller="RecipesCtrl as vm">
+    <ion-nav-title>{{vm.tag.name}} recipes</ion-nav-title>
+    <ion-content>
+        <div class="list">
+            <a class="item item-icon-right" ng-repeat="item in vm.getRecipes()" ui-sref="home.recipe({ id: item.id })">
+                {{item.name}}
+                <i class="icon ion-android-star energized" ng-show="vm.isStarred(item)"></i>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

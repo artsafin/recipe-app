@@ -1,0 +1,12 @@
+<ion-view view-title="Starred recipes" ng-controller="StarredCtrl as vm">
+    <ion-content>
+        <div ng-hide="vm.getStarred().length > 0" class="padding">
+            You haven't starred any recipe yet. See <a ui-sref="home.categories">all recipes</a>.
+        </div>
+        <div class="list">
+            <a class="item" ng-repeat="item in vm.getStarred()" ui-sref="home.recipe({ id: item.id })">
+                {{item.name}}
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

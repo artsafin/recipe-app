@@ -1,0 +1,15 @@
+{
+  "name": "RecipeApp",
+  "description": "RecipeApp",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "private": true,
+  "devDependencies": {
+    "ionic": "~1.2.4"
+  }
+}
