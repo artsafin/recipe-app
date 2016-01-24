@@ -40,39 +40,22 @@
         .factory('LocalStorage', function() {
 
             var cls = {
-                getDefaultCooking: function(recipe){
-                    var result = {
-                        ingredients: {},
-                        steps: {},
-                        numPortions: recipe.numPortions
-                    };
-
-                    var i;
-                    for (i=0; i< recipe.steps.length; i++) {
-                        result.steps[i] = {};
-                    }
-                    for (i=0; i< recipe.ingredients.length; i++) {
-                        result.ingredients[recipe.ingredients[i].name] = {};
-                    }
-
-                    return result;
+                getCookingById: function(id) {
+                    return JSON.parse(localStorage.getItem('cooking-' + id));
                 },
-                getCooking: function(recipe) {
-                    var cooking = cls.getDefaultCooking(recipe);
-
-                    angular.extend(cooking, JSON.parse(localStorage.getItem('cooking-' + recipe.id)));
-
-                    for (var k in cooking.steps) if (cooking.steps.hasOwnProperty(k)) {
-                        cooking.steps[k].alert = null;
-                    }
-
-                    return cooking;
+                setCooking: function(cooking) {
+                    localStorage.setItem('cooking-' + cooking.id, JSON.stringify(cooking));
                 },
-                setCooking: function(recipe, cooking) {
-                    localStorage.setItem('cooking-' + recipe.id, JSON.stringify(cooking));
-
-                    return cooking;
+                removeCooking: function(cooking) {
+                    localStorage.removeItem('cooking-' + cooking.id);
                 },
+                setLastCooking: function(cooking) {
+                    localStorage.setItem('last-cooking', cooking.id);
+                },
+                getLastCooking: function() {
+                    return localStorage.getItem('last-cooking');
+                },
+
                 isRecipeStarred: function(recipe){
                     var starred = cls.$getStarredHash();
                     return starred[recipe.id] !== null && starred[recipe.id] !== undefined;
@@ -93,6 +76,15 @@
                 },
                 getStarredList: function(){
                     return Object.keys(cls.$getStarredHash());
+                },
+
+                stat: function(value){
+                    if (!value) {
+                        return JSON.parse(localStorage.getItem('stat'));
+                    } else {
+                        localStorage.setItem('stat', JSON.stringify(value));
+                        return value;
+                    }
                 }
             };
             return cls;

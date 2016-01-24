@@ -85,7 +85,7 @@
                     <ion-list can-swipe="true">
                         <ion-item ng-repeat="step in vm.recipe.steps">
                             <p ng-bind-html="step.text" ng-class="cook.isDone($index) ? 'step-done': ''"></p>
-                            <ion-option-button class="button" ng-class="cook.isDone($index) ? 'button-dark' : 'button-balanced'" ng-click="cook.toggleDoneAbove($index)">
+                            <ion-option-button class="button" ng-class="cook.isDone($index) ? 'button-dark' : 'button-balanced'" ng-click="cook.toggleDone($index)">
                                 Done&nbsp;<i class="icon" ng-class="cook.isDone($index) ? 'ion-close-round' : 'ion-checkmark-round'"></i>
                             </ion-option-button>
                             <ion-option-button class="button button-energized" ng-click="cook.toggleAlert($index)" ng-show="step.timeMin">

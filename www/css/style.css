@@ -28,3 +28,11 @@
 .badge-top-right {
 	right: 5px!important;
 }
+
+.index-thumbnail.item-image {
+	max-height: 100%;
+	overflow: hidden;
+}
+.index-thumbnail.item-image img:first-child {
+	width: auto;
+}

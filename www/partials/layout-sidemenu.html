@@ -2,17 +2,17 @@
     <!-- Left menu -->
     <ion-side-menu side="left" expose-aside-when="large">
         <header class="bar bar-header bar-positive">
-            <h1 class="title">RecipeApp</h1>
+            <h1 class="title"></h1>
         </header>
         <ion-content class="has-header">
-            <ion-list>
-                <ion-item menu-close ui-sref="home.categories">
-                    Recipes
-                </ion-item>
-                <ion-item menu-close ui-sref="home.starred">
-                    Starred <i class="icon ion-android-star energized"></i>
-                </ion-item>
-            </ion-list>
+            <div class="list">
+                <a class="item" menu-close ui-sref="home.index">Dashboard</a>
+                <a class="item" menu-close ui-sref="home.categories">Recipes</a>
+                <a class="item" menu-close ui-sref="home.starred">
+                    Starred
+                    <i class="icon ion-android-star energized"></i>
+                </a>
+            </div>
         </ion-content>
     </ion-side-menu>
 
