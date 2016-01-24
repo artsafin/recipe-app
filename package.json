@@ -21,7 +21,8 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
-    "https://github.com/katzer/cordova-plugin-local-notifications.git"
+    "cordova-plugin-local-notifications",
+    "cordova-plugin-globalization"
   ],
   "cordovaPlatforms": [
     "android"
