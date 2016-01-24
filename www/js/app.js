@@ -13,20 +13,19 @@ angular.module('recipeApp', ['ionic', 'recipeApp.repository'])
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
-
-        if (typeof navigator.globalization !== "undefined") {
-            navigator.globalization.getPreferredLanguage(function(language) {
-                window.trans = translate((language.value).split("-")[0], translate('en'));
-            }, null);
-        } else {
-            window.trans = translate('ru', translate('en'));
-        }
-
-        window.Resources.doInit();
     });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
+
+    window.trans = translate('ru', translate('en'));
+    //if (typeof navigator.globalization !== "undefined") {
+    //    navigator.globalization.getPreferredLanguage(function(language) {
+    //        window.trans = translate((language.value).split("-")[0], translate('en'));
+    //    }, null);
+    //}
+
+    window.Resources.doInit();
 
     $stateProvider
         .state('home', {

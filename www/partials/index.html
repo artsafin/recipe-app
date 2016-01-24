@@ -1,41 +1,37 @@
 <ion-view ng-controller="IndexCtrl as vm">
-    <ion-nav-title>Recipe App</ion-nav-title>
+    <ion-nav-title>Рецепты</ion-nav-title>
     <ion-content class="padding">
         <div class="card" ng-show="vm.lastCooking">
             <div class="item item-divider">
-                Last recipe
+                Последний рецепт
             </div>
-            <div class="item item-thumbnail-left item-text-wrap item-button-right">
-                <div class="index-thumbnail item-image">
-                    <img ng-src="{{ vm.lastCooking.recipe.images[0] }}">
-                </div>
-
+            <div class="item item-text-wrap item-button-right">
                 <h1 ui-sref="home.recipe.ingredients({id: vm.lastCooking.recipe.id})">{{ vm.lastCooking.recipe.name }}</h1>
 
                 <div class="row">
-                    <div class="col">Gathered ingredients</div>
-                    <div class="col">{{ vm.lastCooking.ingredients.count }}</div>
+                    <div class="col">Собранные ингредиенты</div>
+                    <div class="col">{{ vm.lastCooking.ingredients.count }} из {{ vm.lastCooking.recipe.ingredients.length }}</div>
                 </div>
                 <div class="row">
-                    <div class="col">Steps passed</div>
-                    <div class="col">{{ vm.lastCooking.steps.passed }}</div>
+                    <div class="col">Шагов пройдено</div>
+                    <div class="col">{{ vm.lastCooking.steps.passed }} из {{ vm.lastCooking.recipe.steps.length }}</div>
                 </div>
                 <button class="button button-positive" ui-sref="home.recipe.ingredients({id: vm.lastCooking.recipe.id})">
-                    Continue
+                    Далее
                 </button>
             </div>
         </div>
         <div class="card">
             <div class="item item-divider">
-                Stats
+                Статистика
             </div>
             <div class="item item-text-wrap">
                 <div class="row">
-                    <div class="col">Total recipes</div>
+                    <div class="col">Всего рецептов</div>
                     <div class="col">{{ vm.stat.totalRecipes }}</div>
                 </div>
                 <div class="row">
-                    <div class="col">Hours of cooking</div>
+                    <div class="col">Часов готовки</div>
                     <div class="col">{{ vm.stat.cookingHours }}</div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 window.Resources.init.push(function(R, t) {
 
     R.Units = {
+        item: new Unit(t('item')),
         gram: new Unit(t('gr'), 'mass'),
         litre: new Unit(t('l'), 'volume')
     };

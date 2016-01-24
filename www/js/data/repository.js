@@ -3,30 +3,51 @@
     angular.module('recipeApp.repository', [])
         .factory('TagRepository', function(){
 
-            var list = [];
-            for (var k in Resources.Tags) if (Resources.Tags.hasOwnProperty(k)) {
-                list.push(Resources.Tags[k]);
-            }
+            var list, cats;
 
-            var cats = list.filter(function(item){
-                return item.isCategory;
-            });
-
-            return {
+            var cls = {
                 all: function(){
+                    if (!list) {
+                        list = [];
+                        for (var k in Resources.Tags) if (Resources.Tags.hasOwnProperty(k)) {
+                            list.push(Resources.Tags[k]);
+                        }
+                    }
                     return list;
                 },
                 categories: function(){
+                    if (!cats) {
+                        cats = cls.all().filter(function(item) {
+                            return item.isCategory;
+                        });
+                    }
                     return cats;
                 },
                 byId: function(id){
                     return Resources.Tags[id.toUpperCase()];
                 }
             };
+
+            return cls;
         })
         .factory('RecipeRepository', function() {
 
+            var numByTag;
+
+            function getNumByTag(tag) {
+                if (!numByTag) {
+                    numByTag = {};
+                    for (var i = 0; i < Resources.Recipes.length; i++) {
+                        for (var j = 0; j < Resources.Recipes[i].tags.length; j++) {
+                            numByTag[Resources.Recipes[i].tags[j].id] = (numByTag[Resources.Recipes[i].tags[j].id] || 0) + 1;
+                        }
+                    }
+                }
+                return numByTag[tag.id] || 0;
+            }
+
             return {
+                numByTag: getNumByTag,
                 byTag: function(tag) {
                     return Resources.Recipes.filter(function(item){
                         return item.hasTag(tag);

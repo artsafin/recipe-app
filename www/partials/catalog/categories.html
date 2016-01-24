@@ -1,7 +1,7 @@
-<ion-view view-title="Categories" ng-controller="CategoriesCtrl as vm">
+<ion-view view-title="Категории" ng-controller="CategoriesCtrl as vm">
     <ion-content>
         <div class="list">
-            <a class="item" ng-repeat="ctg in vm.getCategories()" ui-sref="home.recipes({ id: ctg.id })">
+            <a class="item" ng-repeat="ctg in vm.getCategories()" ui-sref="home.recipes({ id: ctg.id })" ng-show="vm.getNumRecipesInTag(ctg) > 0">
                 {{ctg.name}}
                 <span class="badge badge-stable">{{vm.getNumRecipesInTag(ctg)}}</span>
             </a>

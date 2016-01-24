@@ -26,7 +26,7 @@ function Recipe(name, descr, tags, ingredients, steps, images, numPortions, prep
 Recipe.prototype = {
     hasTag: function(tag){
         for (var t in this.tags) {
-            if (this.tags[t].is(tag)) {
+            if (this.tags[t] && this.tags[t].is(tag)) {
                 return true;
             }
         }
@@ -45,20 +45,41 @@ var IngrSeverity = {
  this.unitName = unitName;
  }*/
 
-function Ingredient(name, unitsPerPortion, unit, severity) {
+function Ingredient(name, amount, severity) {
     this.name = name;
-    this.unitsPerPortion = unitsPerPortion;
-    this.unit = unit;
+
+    this.amounts = [];
+
+    if (amount) {
+        if (Array.isArray(amount) && amount.length) { // [?, ?]
+            if (Array.isArray(amount[0])) {
+                for (var i=0;i<amount.length;i++) {
+                    this.amounts.push({
+                        unitsPerPortion: amount[i][0],
+                        unit: amount[i][1],
+                        comment: amount[i][2]
+                    });
+                }
+            } else {
+                this.amounts.push({
+                    unitsPerPortion: amount[0],
+                    unit: amount[1],
+                    comment: amount[2]
+                });
+            }
+        } else {
+            this.amounts.push({
+                unitsPerPortion: null,
+                unit: null,
+                comment: amount + ''
+            });
+        }
+    }
+
     this.severity = severity;
 }
-Ingredient.prototype = {
-    unitsToVolume: function(){
-        if (this.unit.isVolume()) {
-            return this.unit;
-        }
-
-
-    }
+Ingredient.prototype.isOptional = function(){
+    return this.severity === IngrSeverity.OPTIONAL;
 };
 
 function Unit(name, type) {

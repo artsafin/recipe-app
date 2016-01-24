@@ -24,6 +24,16 @@
 .step-done {
 	opacity: 0.3;
 }
+.step-text {
+	font-size: 90%;
+}
+.step-multicooker-mode {
+	font-size: 75%;
+	text-transform: capitalize;
+	border: 1px solid black;
+	border-radius: 4px;
+	padding: 2px;
+}
 
 .badge-top-right {
 	right: 5px!important;
@@ -35,4 +45,16 @@
 }
 .index-thumbnail.item-image img:first-child {
 	width: auto;
+}
+
+.ingredient-optional {
+	opacity: 0.5;
+}
+.ingredient-first {
+	display: block;
+}
+.ingredient-second {
+	display: block;
+	opacity: 0.6;
+	font-size: 80%;
 }

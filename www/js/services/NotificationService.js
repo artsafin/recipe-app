@@ -17,7 +17,7 @@
 
                             cordova.plugins.notification.local.on("trigger", function(notification) {
                                 if (notification.id == data.id) {
-                                    resolve();
+                                    resolve(data);
                                 }
                             });
                         });

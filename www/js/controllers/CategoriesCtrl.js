@@ -5,7 +5,7 @@
             this.getCategories = TagRepository.categories;
 
             this.getNumRecipesInTag = function(tag){
-                return RecipeRepository.byTag(tag).length;
+                return RecipeRepository.numByTag(tag);
             }
         });
 

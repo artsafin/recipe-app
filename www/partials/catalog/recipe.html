@@ -8,16 +8,16 @@
     </ion-nav-buttons>
 
     <ion-tabs delegate-handle="recipe-tabs" class="tabs-top tabs-positive tabs-striped" ng-controller="CookingCtrl as cook">
-        <ion-tab title="Description" ui-sref="home.recipe">
+        <ion-tab title="Описание" ui-sref="home.recipe">
             <ion-view>
-                <ion-content class="padding">
-                    <ion-slide-box>
-                        <ion-slide ng-repeat="img in vm.recipe.images">
+                <ion-content>
+                    <ion-slide-box style="max-height: 400px">
+                        <ion-slide ng-repeat="img in vm.recipe.images" style="text-align: center">
                             <img ng-src="{{ img }}" />
                         </ion-slide>
                     </ion-slide-box>
 
-                    <div class="card">
+                    <div class="card" ng-show="vm.recipe.descr">
                         <div class="item item-text-wrap">
                             {{ vm.recipe.descr }}
                         </div>
@@ -25,39 +25,39 @@
 
                     <div class="card">
                         <div class="item item-divider">
-                            Time
+                            Время
                         </div>
                         <div class="item item-text-wrap">
                             <div class="row">
-                                <div class="col col-center">Prepare <i class="icon ion-clock"></i></div>
-                                <div class="col col-center">{{ vm.recipe.prepareMin }} min</div>
+                                <div class="col col-center">Подготовка <i class="icon ion-clock"></i></div>
+                                <div class="col col-center">{{ vm.recipe.prepareMin }} мин</div>
                             </div>
                             <div class="row">
-                                <div class="col col-center">Cooking <i class="icon ion-clock"></i></div>
-                                <div class="col col-center">{{ vm.recipe.cookMin }} min</div>
+                                <div class="col col-center">Готовка <i class="icon ion-clock"></i></div>
+                                <div class="col col-center">{{ vm.recipe.cookMin }} мин</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="card">
                         <div class="item item-divider">
-                            Complexity
+                            Сложность
                         </div>
                         <div class="item item-text-wrap">
-                            <i class="icon ion-pizza icon-complexity-0" ng-class="vm.recipe.complexity == 0 ? 'icon-enable' : 'icon-disable'"></i>
-                            <i class="icon ion-pizza icon-complexity-1" ng-class="vm.recipe.complexity == 1 ? 'icon-enable' : 'icon-disable'"></i>
-                            <i class="icon ion-pizza icon-complexity-2" ng-class="vm.recipe.complexity == 2 ? 'icon-enable' : 'icon-disable'"></i>
-                            <i class="icon ion-pizza icon-complexity-3" ng-class="vm.recipe.complexity == 3 ? 'icon-enable' : 'icon-disable'"></i>
+                            <i class="icon ion-pizza icon-complexity-0" ng-class="vm.recipe.complexity == 1 ? 'icon-enable' : 'icon-disable'"></i>
+                            <i class="icon ion-pizza icon-complexity-1" ng-class="vm.recipe.complexity == 2 ? 'icon-enable' : 'icon-disable'"></i>
+                            <i class="icon ion-pizza icon-complexity-2" ng-class="vm.recipe.complexity == 3 ? 'icon-enable' : 'icon-disable'"></i>
+                            <i class="icon ion-pizza icon-complexity-3" ng-class="vm.recipe.complexity == 4 ? 'icon-enable' : 'icon-disable'"></i>
                         </div>
                     </div>
                 </ion-content>
             </ion-view>
         </ion-tab>
-        <ion-tab title="Ingredients" ui-sref="home.recipe.ingredients" badge="vm.recipe.ingredients.length || 0" badge-style="badge-top-right">
+        <ion-tab title="Ингредиенты" ui-sref="home.recipe.ingredients" badge="vm.recipe.ingredients.length || 0" badge-style="badge-top-right">
             <ion-view>
                 <ion-content>
                     <div class="row responsive-sm">
-                        <div class="col-20 col-center"><p>Portions:&nbsp;{{ cook.state.numPortions }}</p></div>
+                        <div class="col-20 col-center"><p>Порций:&nbsp;{{ cook.state.numPortions }}</p></div>
                         <div class="col col-center">
                             <div class="range">
                                 <button class="button button-clear button-dark" ng-click="cook.incrNumPortions(-1)"><i class="icon ion-minus-round"></i></button>
@@ -68,10 +68,17 @@
                     </div>
 
                     <div class="list">
-                        <ion-checkbox class="item" ng-repeat="ingr in vm.recipe.ingredients" ng-model="cook.state.ingredients[ingr.name]" ng-class="{'checkbox-light': ingr.severity === 0}">
+                        <ion-checkbox class="item-text-wrap" ng-repeat="ingr in vm.recipe.ingredients" ng-model="cook.state.ingredients[ingr.name]" ng-class="{'checkbox-light': ingr.severity === 0}">
                             <div class="row">
-                                <div class="col">{{ ingr.severity === 0 ? '(optional) ' : '' }} {{ ingr.name }}</div>
-                                <div class="col" style="text-align: right">{{ ingr.unitsPerPortion * cook.state.numPortions }} {{ ingr.unit.name }}</div>
+                                <div class="col">{{ ingr.name }}</div>
+                                <div class="col" style="text-align: right">
+                                    <span ng-show="ingr.isOptional()" class="ingredient-optional">по вкусу</span>
+                                    <span ng-repeat="amt in ingr.amounts" ng-class="$index ? 'ingredient-second' : 'ingredient-first'" ng-show="amt.unitsPerPortion || amt.comment">
+                                        {{ amt.unitsPerPortion && (amt.unitsPerPortion * cook.state.numPortions | number:2) }}
+                                        {{ amt.unit.name }}
+                                        {{ amt.comment }}
+                                    </span>
+                                </div>
                             </div>
                         </ion-checkbox>
                     </div>
@@ -79,17 +86,17 @@
             </ion-view>
         </ion-tab>
 
-        <ion-tab title="Cooking" ui-sref="home.recipe.steps" badge="vm.recipe.steps.length || 0" badge-style="badge-top-right" hidden="{{ !vm.recipe.steps || !vm.recipe.steps.length }}">
+        <ion-tab title="Готовка" ui-sref="home.recipe.steps" badge="vm.recipe.steps.length || 0" badge-style="badge-top-right" hidden="{{ !vm.recipe.steps || !vm.recipe.steps.length }}">
             <ion-view>
                 <ion-content>
                     <ion-list can-swipe="true">
                         <ion-item ng-repeat="step in vm.recipe.steps">
-                            <p ng-bind-html="step.text" ng-class="cook.isDone($index) ? 'step-done': ''"></p>
+                            <span ng-bind-html="step.text" class="step-text item-text-wrap" ng-class="cook.isDone($index) ? 'step-done': ''"></span>
                             <ion-option-button class="button" ng-class="cook.isDone($index) ? 'button-dark' : 'button-balanced'" ng-click="cook.toggleDone($index)">
-                                Done&nbsp;<i class="icon" ng-class="cook.isDone($index) ? 'ion-close-round' : 'ion-checkmark-round'"></i>
+                                Сделано&nbsp;<i class="icon" ng-class="cook.isDone($index) ? 'ion-close-round' : 'ion-checkmark-round'"></i>
                             </ion-option-button>
                             <ion-option-button class="button button-energized" ng-click="cook.toggleAlert($index)" ng-show="step.timeMin">
-                                {{step.timeMin}} min&nbsp;<i class="icon" ng-class="cook.hasAlert($index) ? 'ion-android-notifications' : 'ion-android-notifications-none'"></i>
+                                {{step.timeMin}} мин&nbsp;<i class="icon" ng-class="cook.hasAlert($index) ? 'ion-android-notifications' : 'ion-android-notifications-none'"></i>
                             </ion-option-button>
                         </ion-item>
                     </ion-list>

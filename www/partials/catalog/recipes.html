@@ -1,5 +1,5 @@
 <ion-view ng-controller="RecipesCtrl as vm">
-    <ion-nav-title>{{vm.tag.name}} recipes</ion-nav-title>
+    <ion-nav-title>{{vm.tag.name}}</ion-nav-title>
     <ion-content>
         <div class="list">
             <a class="item item-icon-right" ng-repeat="item in vm.getRecipes()" ui-sref="home.recipe({ id: item.id })">
