@@ -3,7 +3,8 @@ window.Resources.init.push(function(R, t) {
     R.Units = {
         item: new Unit(t('item')),
         gram: new Unit(t('gr'), 'mass'),
-        litre: new Unit(t('l'), 'volume')
+        litre: new Unit(t('l'), 'volume'),
+        cup: new Unit(t('cup'), 'volume')
     };
 
     R.Units.kg = new DerivedUnit(t('kg'), 1000, R.Units.gram);

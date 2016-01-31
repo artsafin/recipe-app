@@ -64,7 +64,7 @@ window.Resources.init.push(function(R, t) {
         t('Гречка с грибами и свининой - описание'),
         [Tags.MAIN, Tags.MEAT, Tags.CEREALS],
         [
-            new Ingredient(t('Гречка'), [4 / 4, Units.item], IngrSeverity.REQUIRED),
+            new Ingredient(t('Гречка'), [4 / 4, Units.cup], IngrSeverity.REQUIRED),
             new Ingredient(t('Лук репчатый средний'), [[1/4, Units.item], [100/4, Units.gram]], IngrSeverity.REQUIRED),
             new Ingredient(t('Морковь средняя'), [[2/4, Units.item], [300/4, Units.gram]], IngrSeverity.REQUIRED),
             new Ingredient(t('Вода или куриный бульон'), [6/4, Unit.item], IngrSeverity.REQUIRED),
@@ -87,6 +87,32 @@ window.Resources.init.push(function(R, t) {
             'resources/img/potato_meat/1.jpg',
             'resources/img/potato_meat/2.jpg'
         ], 4, 10, 40, 2));
+
+    items.push(new Recipe(
+        t('Яблочный пирог'),
+        t('Яблочный пирог - описание'),
+        [Tags.DESSERT],
+        [
+            new Ingredient(t('Яйца'), [4 / 10, Units.item], IngrSeverity.REQUIRED),
+            new Ingredient(t('Сахар'), [[300/10, Units.gram], [1.375/10, Units.cup]], IngrSeverity.REQUIRED),
+            new Ingredient(t('Сливочное масло'), 'для смазывания чаши', IngrSeverity.REQUIRED),
+            new Ingredient(t('Мука'), [[300/10, Unit.item], [1.5/10, Unit.cup]], IngrSeverity.REQUIRED),
+            new Ingredient(t('Ванильный сахар'), [1/10, Unit.teaspoon], IngrSeverity.REQUIRED),
+            new Ingredient(t('Яблоко крупное'), [[2/10, Units.item], [250/10, Units.gram]], IngrSeverity.REQUIRED)
+        ], [
+            new Step('Смажьте внутреннюю чашу мультиварки сливочным маслом, посыпьте сахаром.'),
+            new Step('Очистите яблоки от кожуры и нарежьте их тонкими ломтикаи, разложите на дне мультиварки так, чтобы между яблоками оставалось еще немного свободного места.'),
+            new Step('Яйца взбейте до образования очень плотной белой пены (с помощью ручного блендера со специальной насадкой-миксером на самой высокой скорости).'),
+            new Step('Продолжая взбивать, постепенно добавьте сахар и ванильный сахар'),
+            new Step('Уменьшите скорость блендера до минимума и, продолжая взбивать, частями добавьте всю муку'),
+            new Step('Вылейте тесто на яблоки. Обращайтесь с тестом как можно бережнее, чтобы не повредить пузырьки воздуха, которые обеспечат пирогу пышность и объем'),
+            new Step('Поместите чашу в мультиварку и закройте крышку'),
+            new Step('<span class="step-multicooker-mode">ПЕЧЬ</span> 45 минут, 150&deg;C'),
+            new Step('По окончании программы откройте крышку мультиварки и осторожно достаньте внутреннюю чашу. Дайте пирогу остыть в течение 30 минут.', 30, "Пирог остыл"),
+            new Step('Выложите пирог на блюдо, аккуратно перевернув внутреннюю чашу, чтобы на блюде низ пирога оказался верхом')
+        ], [
+            'resources/img/apple_pie/1.jpg'
+        ], 10, 15, 45, 2));
 
     for (var i = 0, len = items.length; i < len; i++) {
         items[i].id = i;

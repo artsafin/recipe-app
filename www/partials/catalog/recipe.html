@@ -18,9 +18,7 @@
                     </ion-slide-box>
 
                     <div class="card" ng-show="vm.recipe.descr">
-                        <div class="item item-text-wrap">
-                            {{ vm.recipe.descr }}
-                        </div>
+                        <div class="item item-text-wrap" ng-bind-html="vm.recipe.descr"></div>
                     </div>
 
                     <div class="card">
